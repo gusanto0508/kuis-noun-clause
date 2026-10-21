@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Noun Clause - Fakultas Peternakan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; color: black; }
+            .card-shadow { box-shadow: none !important; border: 1px solid #ccc !important; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between selection:bg-agri-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="bg-gradient-to-r from-agri-900 via-agri-800 to-agri-900 text-white shadow-md sticky top-0 z-50 no-print">
+        <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-white/10 rounded-xl backdrop-blur-md">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 text-agri-200"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base md:text-lg leading-tight">Fakultas Peternakan</h1>
+                    <p class="text-xs text-agri-200">English for Animal Husbandry & Science</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 bg-agri-950/40 px-3 py-1.5 rounded-lg border border-agri-700/50">
+                <i data-lucide="book-open-check" class="w-4 h-4 text-agri-300"></i>
+                <span class="text-xs font-semibold tracking-wide text-agri-100">Grammar Mastery: Noun Clause</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-grow">
+
+        <!-- STEP 1: WELCOME / REGISTRATION SCREEN -->
+        <section id="screen-welcome" class="fade-in space-y-6">
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-agri-800 to-agri-700 p-6 md:p-8 text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <span class="inline-block px-3 py-1 bg-white/10 text-agri-200 text-xs font-semibold rounded-full mb-3 backdrop-blur-sm">
+                            Asesmen Bahasa Inggris
+                        </span>
+                        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Kuis Interaktif: Noun Clauses in Livestock Science</h2>
+                        <p class="mt-2 text-agri-100 text-sm md:text-base max-w-2xl">
+                            Uji pemahaman Anda mengenai struktur <strong>Noun Clause</strong> dalam konteks Nutrisi, Pemuliaan, Kesehatan, Precision Farming, dan Pengolahan Hasil Ternak.
+                        </p>
+                    </div>
+                    <i data-lucide="dna" class="absolute -right-6 -bottom-6 w-48 h-48 text-white/5 rotate-12"></i>
+                </div>
+
+                <div class="p-6 md:p-8 space-y-6">
+                    <form id="form-identity" onsubmit="startQuiz(event)" class="space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label for="student-name" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                    Nama Lengkap Mahasiswa <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <i data-lucide="user" class="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                    <input type="text" id="student-name" required placeholder="Masukkan Nama Lengkap" 
+                                        class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-agri-600 focus:ring-2 focus:ring-agri-600/20 outline-none transition text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="student-nim" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                    NIM (Nomor Induk Mahasiswa) <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <i data-lucide="id-card" class="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                    <input type="text" id="student-nim" required placeholder="Contoh: 23010121120001" 
+                                        class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-agri-600 focus:ring-2 focus:ring-agri-600/20 outline-none transition text-sm">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Instructions -->
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2">
+                            <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                                <i data-lucide="info" class="w-4 h-4 text-agri-600"></i> Petunjuk Pengerjaan Kuis:
+                            </h3>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                                <li>Kuis terdiri dari <strong>5 Soal Pilihan Ganda</strong> berbasis Noun Clause peternakan.</li>
+                                <li>Setiap soal memiliki batas waktu rekomendasi total <strong>10 Menit</strong>.</li>
+                                <li>Pembahasan komprehensif akan ditampilkan langsung setelah memilih jawaban atau di akhir asesmen.</li>
+                                <li>Anda dapat mencetak atau mengunduh ringkasan hasil evaluasi setelah menyelesaikan seluruh soal.</li>
+                            </ul>
+                        </div>
+
+                        <button type="submit" 
+                            class="w-full py-3.5 px-6 bg-agri-600 hover:bg-agri-700 active:bg-agri-800 text-white font-bold rounded-xl shadow-lg shadow-agri-600/25 transition-all flex items-center justify-center gap-2 group text-sm md:text-base">
+                            <span>Mulai Pengerjaan Kuis</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: QUIZ INTERACTION SCREEN -->
+        <section id="screen-quiz" class="hidden fade-in space-y-5">
+            <!-- Top Bar Info & Progress -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 space-y-3">
+                <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
+                    <span class="flex items-center gap-1.5 text-slate-700">
+                        <i data-lucide="user-check" class="w-4 h-4 text-agri-600"></i>
+                        <span id="quiz-student-display">Mahasiswa: -</span>
+                    </span>
+                    <span id="quiz-timer" class="flex items-center gap-1.5 text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200 font-mono text-xs">
+                        <i data-lucide="clock" class="w-3.5 h-3.5"></i> 10:00
+                    </span>
+                </div>
+
+                <!-- Progress bar -->
+                <div>
+                    <div class="flex justify-between items-center text-xs text-slate-600 font-medium mb-1">
+                        <span>Progress Soal</span>
+                        <span id="quiz-progress-text">Soal 1 dari 5</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                        <div id="quiz-progress-bar" class="bg-agri-600 h-full w-1/5 transition-all duration-300"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-200 p-6 md:p-8 space-y-6">
+                <!-- Question Context & Prompt -->
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span id="question-category" class="px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-agri-100 text-agri-800 uppercase tracking-wider">
+                            Topic
+                        </span>
+                        <span id="question-function-badge" class="px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-slate-100 text-slate-600">
+                            Grammar Target
+                        </span>
+                    </div>
+                    <h3 id="question-text" class="text-base md:text-lg font-bold text-slate-800 leading-relaxed">
+                        Loading Soal...
+                    </h3>
+                </div>
+
+                <!-- Multiple Choice Options -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Options populated by JS -->
+                </div>
+
+                <!-- Inline Explanation Panel (Shown after answering) -->
+                <div id="explanation-box" class="hidden bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-3 fade-in">
+                    <div class="flex items-center gap-2">
+                        <i id="explanation-icon" data-lucide="info" class="w-5 h-5"></i>
+                        <h4 id="explanation-title" class="font-bold text-sm">Pembahasan Noun Clause:</h4>
+                    </div>
+                    <p id="explanation-text" class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                        Explanations...
+                    </p>
+                    <div class="bg-white p-3 rounded-lg border border-slate-200 text-xs text-slate-700">
+                        <span class="font-bold text-agri-800">Fungsi Noun Clause:</span> 
+                        <span id="explanation-function">Function description...</span>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <button id="btn-prev" onclick="navigateQuestion(-1)" disabled
+                        class="px-4 py-2 rounded-lg border border-slate-200 text-slate-500 font-medium text-xs md:text-sm hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5">
+                        <i data-lucide="chevron-left" class="w-4 h-4"></i> Sebelum
+                    </button>
+                    
+                    <button id="btn-next" onclick="navigateQuestion(1)" disabled
+                        class="px-5 py-2.5 bg-agri-600 hover:bg-agri-700 active:bg-agri-800 text-white font-bold rounded-xl shadow-md shadow-agri-600/20 text-xs md:text-sm flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition">
+                        <span id="btn-next-text">Selanjutnya</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 3: SCORECARD / RESULTS SCREEN -->
+        <section id="screen-result" class="hidden fade-in space-y-6">
+            <!-- Summary Score Banner -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200 overflow-hidden card-shadow">
+                <div id="result-header-bg" class="bg-gradient-to-r from-agri-800 to-agri-700 p-6 md:p-8 text-white text-center space-y-3">
+                    <span class="px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-full uppercase tracking-wider backdrop-blur-sm">
+                        Hasil Evaluasi Pembelajaran
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold">Kartu Hasil Kuis Noun Clause</h2>
+                    <p class="text-xs md:text-sm text-agri-100 max-w-lg mx-auto">
+                        Fakultas Peternakan - Program Studi Ilmu Peternakan
+                    </p>
+                </div>
+
+                <div class="p-6 md:p-8 space-y-6">
+                    <!-- Student Identity Card & Score Metric -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center bg-slate-50 rounded-2xl p-5 border border-slate-200">
+                        <!-- Identity -->
+                        <div class="md:col-span-2 space-y-2 border-b md:border-b-0 md:border-r border-slate-200 pb-4 md:pb-0 md:pr-4">
+                            <div class="flex items-center gap-2 text-agri-800 font-bold text-sm">
+                                <i data-lucide="user-check" class="w-4 h-4"></i> InformasI Mahasiswa
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-xs md:text-sm">
+                                <div>
+                                    <span class="text-slate-500 block">Nama Mahasiswa:</span>
+                                    <span id="res-student-name" class="font-bold text-slate-800">-</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500 block">NIM:</span>
+                                    <span id="res-student-nim" class="font-bold text-slate-800">-</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500 block">Waktu Selesai:</span>
+                                    <span id="res-timestamp" class="font-semibold text-slate-700">-</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500 block">Status Kelulusan:</span>
+                                    <span id="res-status-badge" class="font-bold">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Score Visual -->
+                        <div class="text-center space-y-1">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Skor Akhir</span>
+                            <div class="text-4xl md:text-5xl font-extrabold text-agri-700" id="res-score-number">0/100</div>
+                            <p id="res-score-detail" class="text-xs text-slate-500">Benar 0 dari 5 Soal</p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-3 justify-end no-print">
+                        <button onclick="window.print()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs md:text-sm font-semibold flex items-center gap-2 shadow-sm transition">
+                            <i data-lucide="printer" class="w-4 h-4"></i> Cetak / Simpan PDF
+                        </button>
+                        <button onclick="resetQuiz()" class="px-4 py-2.5 bg-agri-600 hover:bg-agri-700 text-white rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 shadow-md shadow-agri-600/20 transition">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Coba Lagi (Restart)
+                        </button>
+                    </div>
+
+                    <!-- Full Breakdown & Explanations Review -->
+                    <div class="space-y-4 pt-4 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-5 h-5 text-agri-600"></i> Rincian Jawaban & Pembahasan Noun Clause
+                        </h3>
+
+                        <div id="review-container" class="space-y-4">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 no-print">
+        <p>&copy; 2026 Interactive Assessment App - Fakultas Peternakan (Animal Husbandry Dept.)</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">Disiapkan untuk Deployment Netlify | Ready for Web & Mobile</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // SOAL QUIZ NOUN CLAUSE (Fakultas Peternakan)
+        const quizQuestions = [
+            {
+                id: 1,
+                category: "Nutrisi & Formulasi Pakan",
+                functionTag: "Noun Clause as Subject / Subject Complement",
+                question: "Read the sentence below and choose the correct option to fill in the blank:\n\n\"________ is high-quality forage rich in digestible fiber and balanced crude protein.\"",
+                options: [
+                    "What the ruminant needs for optimal milk production",
+                    "That the ruminant needs optimal milk production",
+                    "Where does the ruminant need for milk",
+                    "Which ruminants needed for high milk"
+                ],
+                correctIndex: 0,
+                explanation: "Klausa <strong>'What the ruminant needs for optimal milk production'</strong> berfungsi sebagai <strong>Subject</strong> dari kata kerja utama <em>'is'</em>. Noun clause ini menjawab pertanyaan 'apa yang dibutuhkan ternak ruminansia'. Penggunaan kata hubung <em>'What'</em> tepat karena mengacu pada hal/nutrisi yang dibutuhkan.",
+                clauseRole: "Subject of the sentence"
+            },
+            {
+                id: 2,
+                category: "Genetika & Pemuliaan Ternak",
+                functionTag: "Noun Clause as Direct Object",
+                question: "Choose the correct sentence structure for the animal breeding research context:",
+                options: [
+                    "Researchers investigated that how crossbreeding affects carcass quality in beef cattle.",
+                    "Researchers at the animal breeding lab investigated how crossbreeding affects carcass quality.",
+                    "Researchers investigated how does crossbreeding affect carcass quality in beef cattle.",
+                    "Researchers investigated crossbreeding affects how carcass quality."
+                ],
+                correctIndex: 1,
+                explanation: "Klausa <strong>'how crossbreeding affects carcass quality'</strong> bertindak sebagai <strong>Direct Object</strong> dari kata kerja transitif <em>'investigated'</em>. Perhatikan susunan kata dalam Noun Clause harus mengikuti urutan *statement* (Question Word + Subject + Verb: <em>how + crossbreeding + affects</em>), BUKAN susunan kalimat tanya (*how does crossbreeding affect*).",
+                clauseRole: "Direct Object of verb 'investigated'"
+            },
+            {
+                id: 3,
+                category: "Kesehatan & Manajemen Ternak",
+                functionTag: "Noun Clause as Object of Preposition",
+                question: "Complete the sentence with the appropriate Noun Clause:\n\n\"The success of biosecurity implementation in commercial poultry farms depends on ________.\"",
+                options: [
+                    "how strictly farmers follow vaccination and sanitation protocols",
+                    "how do farmers strictly follow vaccination and sanitation protocols",
+                    "that farmers follow strictly vaccination protocols or not",
+                    "where strictly are farmers following vaccination protocols"
+                ],
+                correctIndex: 0,
+                explanation: "Klausa <strong>'how strictly farmers follow vaccination and sanitation protocols'</strong> berfungsi sebagai <strong>Object of Preposition</strong> dari kata depan <em>'on'</em> (dalam frasa *depends on*). Strukturnya tetap mengikuti aturan klausa berita (Subject: *farmers* + Verb: *follow*).",
+                clauseRole: "Object of Preposition 'on'"
+            },
+            {
+                id: 4,
+                category: "Precision Livestock Farming",
+                functionTag: "Noun Clause as Subject",
+                question: "Identify the correct Noun Clause serving as the Subject of the sentence:",
+                options: [
+                    "Whether automated milking systems improve animal welfare is still a subject of debate among livestock experts.",
+                    "If automated milking systems improve animal welfare is still a subject of debate among livestock experts.",
+                    "Does automated milking systems improve animal welfare is still debating among experts.",
+                    "That whether automated milking systems improve welfare is still a debate."
+                ],
+                correctIndex: 0,
+                explanation: "Klausa <strong>'Whether automated milking systems improve animal welfare'</strong> berfungsi sebagai <strong>Subject</strong> dari kata kerja <em>'is'</em>. Catatan tata bahasa penting: Untuk posisi Subject di awal kalimat, gunakan <strong>'Whether'</strong> (bukan 'If').",
+                clauseRole: "Subject of the sentence"
+            },
+            {
+                id: 5,
+                category: "Teknologi Pengolahan Hasil Ternak",
+                functionTag: "Noun Clause as Subject Complement",
+                question: "Complete the statement regarding dairy product processing:\n\n\"The main technical challenge in liquid milk pasteurization is ________.\"",
+                options: [
+                    "why temperature control must remain consistent throughout the process",
+                    "that why temperature control must remain consistent throughout the process",
+                    "why must temperature control remain consistent during process",
+                    "temperature control must why remain consistent in process"
+                ],
+                correctIndex: 0,
+                explanation: "Klausa <strong>'why temperature control must remain consistent throughout the process'</strong> berfungsi sebagai <strong>Subject Complement</strong> (melengkapi Subject *'The main technical challenge'* setelah *linking verb* <em>'is'</em>). Klausa ini menjelaskan alasan dari tantangan teknis tersebut.",
+                clauseRole: "Subject Complement (following linking verb 'is')"
+            }
+        ];
+
+        // APP STATE
+        let studentData = { name: "", nim: "" };
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizQuestions.length).fill(null);
+        let timerInterval = null;
+        let timeRemaining = 600; // 10 minutes in seconds
+
+        // Initialize Lucide Icons on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // START QUIZ
+        function startQuiz(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('student-name').value.trim();
+            const nimInput = document.getElementById('student-nim').value.trim();
+
+            if (!nameInput || !nimInput) return;
+
+            studentData.name = nameInput;
+            studentData.nim = nimInput;
+
+            document.getElementById('quiz-student-display').innerText = `Mahasiswa: ${studentData.name} (${studentData.nim})`;
+            
+            // Switch screen
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+
+            // Start Timer & Render First Question
+            startTimer();
+            renderQuestion();
+        }
+
+        // TIMER SYSTEM
+        function startTimer() {
+            timeRemaining = 600;
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            document.getElementById('quiz-timer').innerHTML = `<i data-lucide="clock" class="w-3.5 h-3.5"></i> ${formatted}`;
+            lucide.createIcons();
+        }
+
+        // RENDER QUESTION
+        function renderQuestion() {
+            const q = quizQuestions[currentQuestionIndex];
+            
+            // Update Progress
+            document.getElementById('quiz-progress-text').innerText = `Soal ${currentQuestionIndex + 1} dari ${quizQuestions.length}`;
+            document.getElementById('quiz-progress-bar').style.width = `${((currentQuestionIndex + 1) / quizQuestions.length) * 100}%`;
+
+            // Tags & Texts
+            document.getElementById('question-category').innerText = q.category;
+            document.getElementById('question-function-badge').innerText = q.functionTag;
+            document.getElementById('question-text').innerText = q.question;
+
+            // Render Options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const selectedAnswer = userAnswers[currentQuestionIndex];
+
+            q.options.forEach((opt, idx) => {
+                const isSelected = selectedAnswer === idx;
+                const optButton = document.createElement('button');
+                optButton.type = 'button';
+                optButton.onclick = () => selectOption(idx);
+                
+                let btnClasses = "w-full text-left p-4 rounded-xl border text-xs md:text-sm transition flex items-start gap-3 ";
+                if (isSelected) {
+                    btnClasses += "border-agri-600 bg-agri-50 text-agri-900 font-semibold ring-2 ring-agri-600/20";
+                } else {
+                    btnClasses += "border-slate-200 hover:border-agri-400 hover:bg-slate-50 text-slate-700";
+                }
+                optButton.className = btnClasses;
+
+                const letter = String.fromCharCode(65 + idx); // A, B, C, D
+                optButton.innerHTML = `
+                    <span class="w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${isSelected ? 'bg-agri-600 text-white' : 'bg-slate-100 text-slate-600'}">
+                        ${letter}
+                    </span>
+                    <span class="pt-0.5">${opt}</span>
+                `;
+                optionsContainer.appendChild(optButton);
+            });
+
+            // Handle Navigation Buttons State
+            document.getElementById('btn-prev').disabled = currentQuestionIndex === 0;
+            const nextBtn = document.getElementById('btn-next');
+            const nextBtnText = document.getElementById('btn-next-text');
+            
+            if (userAnswers[currentQuestionIndex] === null) {
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.disabled = false;
+            }
+
+            if (currentQuestionIndex === quizQuestions.length - 1) {
+                nextBtnText.innerText = "Selesai & Lihat Hasil";
+            } else {
+                nextBtnText.innerText = "Selanjutnya";
+            }
+
+            // Inline Explanation Handling
+            const expBox = document.getElementById('explanation-box');
+            if (selectedAnswer !== null) {
+                expBox.classList.remove('hidden');
+                document.getElementById('explanation-text').innerHTML = q.explanation;
+                document.getElementById('explanation-function').innerText = q.clauseRole;
+                
+                const isCorrect = selectedAnswer === q.correctIndex;
+                const expTitle = document.getElementById('explanation-title');
+                const expIcon = document.getElementById('explanation-icon');
+
+                if (isCorrect) {
+                    expTitle.innerText = "Jawaban Anda Benar!";
+                    expTitle.className = "font-bold text-sm text-agri-800";
+                    expIcon.className = "w-5 h-5 text-agri-600";
+                } else {
+                    expTitle.innerText = "Jawaban Kurang Tepat";
+                    expTitle.className = "font-bold text-sm text-rose-700";
+                    expIcon.className = "w-5 h-5 text-rose-600";
+                }
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            lucide.createIcons();
+        }
+
+        // SELECT OPTION
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            renderQuestion();
+        }
+
+        // NAVIGATION
+        function navigateQuestion(direction) {
+            const newIndex = currentQuestionIndex + direction;
+            if (newIndex >= 0 && newIndex < quizQuestions.length) {
+                currentQuestionIndex = newIndex;
+                renderQuestion();
+            } else if (newIndex >= quizQuestions.length) {
+                finishQuiz();
+            }
+        }
+
+        // FINISH QUIZ & SHOW SCORECARD
+        function finishQuiz() {
+            clearInterval(timerInterval);
+
+            // Calculate Score
+            let correctCount = 0;
+            userAnswers.forEach((ans, i) => {
+                if (ans === quizQuestions[i].correctIndex) correctCount++;
+            });
+
+            const score = (correctCount / quizQuestions.length) * 100;
+
+            // Populate Student Data on Scorecard
+            document.getElementById('res-student-name').innerText = studentData.name;
+            document.getElementById('res-student-nim').innerText = studentData.nim;
+            document.getElementById('res-timestamp').innerText = new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
+            
+            const statusBadge = document.getElementById('res-status-badge');
+            if (score >= 70) {
+                statusBadge.innerText = "LULUS (Passed)";
+                statusBadge.className = "font-bold text-agri-700 bg-agri-100 px-2 py-0.5 rounded text-xs inline-block";
+            } else {
+                statusBadge.innerText = "REMIDIAL (Needs Review)";
+                statusBadge.className = "font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded text-xs inline-block";
+            }
+
+            document.getElementById('res-score-number').innerText = `${score}`;
+            document.getElementById('res-score-detail').innerText = `Benar ${correctCount} dari ${quizQuestions.length} Soal`;
+
+            // Populate Review Breakdown
+            const reviewContainer = document.getElementById('review-container');
+            reviewContainer.innerHTML = '';
+
+            quizQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correctIndex;
+
+                const reviewCard = document.createElement('div');
+                reviewCard.className = `p-5 rounded-xl border ${isCorrect ? 'border-agri-200 bg-agri-50/40' : 'border-rose-200 bg-rose-50/30'} space-y-3`;
+
+                const userChoiceText = userAns !== null ? q.options[userAns] : 'Tidak dijawab';
+                const correctChoiceText = q.options[q.correctIndex];
+
+                reviewCard.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="space-y-1">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">${q.category} &bull; ${q.functionTag}</span>
+                            <h4 class="font-bold text-slate-800 text-xs md:text-sm">${idx + 1}. ${q.question}</h4>
+                        </div>
+                        <span class="shrink-0 px-2.5 py-1 rounded-full text-xs font-bold ${isCorrect ? 'bg-agri-600 text-white' : 'bg-rose-600 text-white'}">
+                            ${isCorrect ? 'Benar' : 'Salah'}
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs pt-1">
+                        <div class="p-2.5 rounded-lg ${isCorrect ? 'bg-agri-100/70 text-agri-900' : 'bg-rose-100/70 text-rose-900'}">
+                            <span class="font-semibold block text-[11px] opacity-75">Jawaban Anda:</span>
+                            ${userChoiceText}
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-white border border-slate-200 text-slate-800">
+                            <span class="font-semibold block text-[11px] text-agri-700">Jawaban Benar:</span>
+                            ${correctChoiceText}
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-white rounded-lg border border-slate-200 text-xs text-slate-600 leading-relaxed space-y-1">
+                        <div class="font-bold text-slate-700">Pembahasan Tata Bahasa:</div>
+                        <div>${q.explanation}</div>
+                        <div class="text-[11px] text-agri-700 font-medium pt-1">Fungsi Utama: ${q.clauseRole}</div>
+                    </div>
+                `;
+
+                reviewContainer.appendChild(reviewCard);
+            });
+
+            // Switch Screen
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+
+            lucide.createIcons();
+        }
+
+        // RESET QUIZ
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-welcome').classList.remove('hidden');
+            
+            // Reset Form inputs
+            document.getElementById('form-identity').reset();
+        }
+    </script>
+</body>
+</html>
